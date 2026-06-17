@@ -15,63 +15,66 @@ jMT = 0
 
 Opcion = ""
 
-# para representar mas cómodo las horas en lugar de numeritos
+# para representar mas cómodo las horas en lugar de numeritos, y los nombres de las matruces
 hora = {0:"06:00 hs",1:"18:00 hs",2:"22:00 hs"}
+mat = {1:"Temperatura",2:"Velocidad de viento",3:"Precipitación"}
 
+# Submenú para seleccionar el dato a cargar
 def CargarDatos():
     OPT = ""
     while OPT == "":
-        OPT = input("""
+        OPT = int(input("""
     Seleccione el dato a cargar:
     1 - Temperatura
     2 - Velocidad de viento
-    3 - Precipitación\n""")
-        if OPT == "1":
-            CargarMatriz(MT,iMT,jMT,0,30)
-        elif OPT == "2":
-            CargarMatriz(MV,iMV,jMV,0,30)
-        elif OPT == "3":
-            CargarMatriz(MP,iMP,jMP,0,30)
+    3 - Precipitación\n"""))
+        if OPT == 1:
+            MT,iMT,jMT = CargarMatriz(MT,iMT,jMT,0,30, OPT) # Envío el parametro OPT para imprimir un textito que diga qué matriz es
+        elif OPT == 2:
+            MV,iMV,jMV = CargarMatriz(MV,iMV,jMV,0,15, OPT)
+        elif OPT == 3:
+            MP,iMP,jMP = CargarMatriz(MP,iMP,jMP,5,10, OPT)
         else:
             print("\nOpción inválida\n")
             OPT = ""
     
-
-def CargarMatriz(Matriz, indiceFil, indiceCol, limMin, limMax):
+# Modulito para cargar la matriz seleccionada en el menú anterior
+def CargarMatriz(Matriz, indiceFil, indiceCol, limMin, limMax, OPT):
     if indiceFil > 29:
         print("Datos completamente cargados")
-        input("Test")
     else:
-        TMP = int(input(f"""
-        CARGAR NUEVO DATO:
+        print(f"""
+        CARGAR NUEVO DATO: {mat[OPT]}
         DIA: {indiceFil+1}
         HORA: {hora[indiceCol]}
-        TEMP: {"N/D" if Matriz[indiceFil][indiceCol] == -1 else Matriz[indiceFil][indiceCol]}
-        Ingresar temperatura: """))
-        if TMP < 30 and TMP > 0:
-            conf = int(input(f"Usted ingresó {TMP} Confirmar? 1: SI, 2:NO:    "))
-            if conf != 1 and conf != 2:
-                print("Valor Invalido")
-            elif conf == 1:
-                Matriz[indiceFil][indiceCol] = TMP
+        Valor: {"N/D" if Matriz[indiceFil][indiceCol] == -1 else Matriz[indiceFil][indiceCol]}
+        Ingrese valor: """)
+
+        VAL = ValidarDato(limMin,limMax)
+
+        conf=""
+        while conf == "":
+            conf = int(input(f"Usted ingresó {VAL} Confirmar? 1: SI, 2:NO: "))
+            if conf == 1:
+                Matriz[indiceFil][indiceCol] = VAL
                 print(f"""
                 ---------- VALOR CARGADO -------------
-                DIA: {indiceFil+1}
-                HORA: {hora[indiceCol]}
-                TEMP: {Matriz[indiceFil][indiceCol]}
+                    DIA: {indiceFil+1}
+                    HORA: {hora[indiceCol]}
+                    {mat[OPT]}: {Matriz[indiceFil][indiceCol]}
                 --------------------------------------""")           
                 indiceCol += 1
                 if indiceCol > 2:
                     indiceCol = 0
                     indiceFil +=1
-                
+            elif conf == 2:
+                    print("Cancelado")
             else:
-                print("Cancelado")
-        else:
-            print("Valor invalido. Reingrese.")  
-
+                print("\nOpción inválida")
+                conf=""
     return(Matriz,indiceFil,indiceCol)
 
+# Submódulo para verificar si el dato solicitado está dentro de los rangos permitidos
 def ValidarDato(limMin,limMax):
     Valor  = ""
     while Valor == "":
@@ -88,7 +91,7 @@ def ValidarDato(limMin,limMax):
 
 
 #modulo DiaYHoraMasVentoso
-def DiaYHoraMasVentoso(MV):
+def DiaYHoraMasVentoso():
     max_viento = -2
     dia_max = -2
     hora_max = ""
@@ -154,7 +157,7 @@ def promedio(matrizDatos, matrizNombre):
     print(f"El promedio de {matrizNombre} es: {promedio}")
 
 # SUBMODULO: Día y hora menos lluvioso:
-def DiaHoraMenosLluvioso(MP):
+def DiaHoraMenosLluvioso():
     if MP[0][0] == -1:
         print("Sin datos cargados")
         return
@@ -215,6 +218,8 @@ while Opcion != "000":
         print("Opcion 5 seleccionada")
     elif Opcion == "000":
         print("\nSalimo'\n")
+        for i in MP:
+            print(i)
         continue # sale del programa en el siguiente chequeo
     else:
         print("\nOpción inválida\n") #las \n son para darle el salto de linea y que no quede todo  re pegado
