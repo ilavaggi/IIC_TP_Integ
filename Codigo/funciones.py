@@ -21,6 +21,9 @@ mat = {1:"Temperatura",2:"Velocidad de viento",3:"Precipitación"}
 
 # Submenú para seleccionar el dato a cargar
 def CargarDatos():
+    #Como las tengo que modificar, le digo a la función que son GLOBALES, para que no me haga shadowing
+    global MT, iMT, jMT, MV, iMV, jMV, MP, iMP, jMP
+
     OPT = ""
     while OPT == "":
         OPT = int(input("""
@@ -29,9 +32,9 @@ def CargarDatos():
     2 - Velocidad de viento
     3 - Precipitación\n"""))
         if OPT == 1:
-            MT,iMT,jMT = CargarMatriz(MT,iMT,jMT,0,30, OPT) # Envío el parametro OPT para imprimir un textito que diga qué matriz es
+           MT,iMT,jMT = CargarMatriz(MT,iMT,jMT,0,30, OPT) # Envío el parametro OPT para imprimir un textito que diga qué matriz es
         elif OPT == 2:
-            MV,iMV,jMV = CargarMatriz(MV,iMV,jMV,0,15, OPT)
+           MV,iMV,jMV = CargarMatriz(MV,iMV,jMV,0,15, OPT)
         elif OPT == 3:
             MP,iMP,jMP = CargarMatriz(MP,iMP,jMP,5,10, OPT)
         else:
@@ -209,7 +212,7 @@ while Opcion != "000":
     if Opcion == "1":
         print(CargarDatos())
     elif Opcion == "2":
-        print("Opcion 2 seleccionada")
+        promedioSensores()
     elif Opcion == "3":
         print("Opcion 3 seleccionada")
     elif Opcion == "4":
