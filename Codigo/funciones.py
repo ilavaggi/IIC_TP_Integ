@@ -50,6 +50,43 @@ except KeyboardInterrupt:
     print("Salimo'")
     for i in MP:
         print(i)
+#modulo DiaYHoraMasVentoso
+def DiaYHoraMasVentoso(MV):
+    max_viento = -2
+    dia_max = -2
+    hora_max = ""
+    
+    for i in range(30):
+        for j in range(3):
+            if MV[i][j] == -1:
+                # Si max_viento sigue en -1, la matriz estaba vacía
+                if max_viento == -1:
+                    print("No hay datos cargados")
+                else:
+                    print(f"Día más ventoso: {dia_max}")
+                    print(f"Hora: {hora_max}")
+                # Con return para terminar 
+                return 
+            
+            # voy cambiando y me quedo con la velocidad máxima guardada
+            if MV[i][j] > max_viento:
+                max_viento = MV[i][j]  # Guardamos esta nueva velocidad como la máxima
+                dia_max = i + 1        # Guardamos el día real (sumamos 1 porque el índice 'i' empieza en 0)
+                
+                # acá entiendo que es para designar la hora
+                if j == 0:
+                    hora_max = "06:00hs"
+                elif j == 1:
+                    hora_max = "18:00hs"
+                else:
+                    hora_max = "22:00hs"
+                    
+    # Este bloque final me sirve para cuando la matriz está full
+    if max_viento == -1:
+        print("No hay datos cargados")
+    else:
+        print(f"Día más ventoso: {dia_max}")
+        print(f"Hora: {hora_max}")
 
 # SUBMODULO: Promedio de Sensores
 
