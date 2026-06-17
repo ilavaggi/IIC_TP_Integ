@@ -1,10 +1,24 @@
+# para usar algunos delay entre opciones
+import time
+
 # 3 columnas, 30 filas. Resuelto por comprensión de listas 
 MP = [[-1 for _ in range(3)] for _ in range(30)]
+MV = [[-1 for _ in range(3)] for _ in range(30)]
+MT = [[-1 for _ in range(3)] for _ in range(30)]
 
 iMP = 0
+iMV = 0
+iMT = 0
 jMP = 0
+jMV = 0
+jMT = 0
 
+Opcion = ""
+
+# para representar mas cómodo las horas en lugar de numeritos
 hora = {0:"06:00 hs",1:"18:00 hs",2:"22:00 hs"}
+
+
 
 def CargarMatriz(Matriz, indiceFil, indiceCol):
     if indiceFil > 29:
@@ -41,15 +55,6 @@ def CargarMatriz(Matriz, indiceFil, indiceCol):
 
     return(Matriz,indiceFil,indiceCol)
 
-try:
-    while True:
-        MP,iMP,jMP = CargarMatriz(MP,iMP,jMP)
-        
-
-except KeyboardInterrupt:
-    print("Salimo'")
-    for i in MP:
-        print(i)
 #modulo DiaYHoraMasVentoso
 def DiaYHoraMasVentoso(MV):
     max_viento = -2
@@ -151,3 +156,41 @@ def DiaHoraMenosLluvioso(MP):
         print("Error de cálculo")
 
     print(f"Día de menor precipitación: {diaMinimo + 1}. Hora de menor precipitación: {horaString}")        
+
+
+
+
+### PROGRAMA / LOOP PRINCIPAL
+
+
+try:
+    while Opcion != "000":
+        Opcion = input("""Elija una opción:
+1 - Ingresar datos de sensores
+2 - Mostrar promedio mensual de sensores
+3 - Mostrar temperatura maxima y minima del mes
+4 - Día y hora mas ventoso del mes
+5 - Día y hora menos lluvioso
+000 - Para finalizar el programa
+""")
+        if Opcion == "1":
+            print("Opcion 1 seleccionada")
+        elif Opcion == "2":
+            print("Opcion 2 seleccionada")
+        elif Opcion == "3":
+            print("Opcion 3 seleccionada")
+        elif Opcion == "4":
+            print("Opcion 4 seleccionada")
+        elif Opcion == "5":
+            print("Opcion 5 seleccionada")
+        elif Opcion == "000":
+            continue # sale del programa en el siguiente chequeo
+        else:
+            print("Opción inválida")
+        
+        
+
+except KeyboardInterrupt:
+    print("Salimo'")
+    for i in MP:
+        print(i)
