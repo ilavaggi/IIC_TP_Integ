@@ -18,9 +18,26 @@ Opcion = ""
 # para representar mas cómodo las horas en lugar de numeritos
 hora = {0:"06:00 hs",1:"18:00 hs",2:"22:00 hs"}
 
+def CargarDatos():
+    OPT = ""
+    while OPT == "":
+        OPT = input("""
+    Seleccione el dato a cargar:
+    1 - Temperatura
+    2 - Velocidad de viento
+    3 - Precipitación\n""")
+        if OPT == "1":
+            CargarMatriz(MT,iMT,jMT,0,30)
+        elif OPT == "2":
+            CargarMatriz(MV,iMV,jMV,0,30)
+        elif OPT == "3":
+            CargarMatriz(MP,iMP,jMP,0,30)
+        else:
+            print("\nOpción inválida\n")
+            OPT = ""
+    
 
-
-def CargarMatriz(Matriz, indiceFil, indiceCol):
+def CargarMatriz(Matriz, indiceFil, indiceCol, limMin, limMax):
     if indiceFil > 29:
         print("Datos completamente cargados")
         input("Test")
@@ -54,6 +71,21 @@ def CargarMatriz(Matriz, indiceFil, indiceCol):
             print("Valor invalido. Reingrese.")  
 
     return(Matriz,indiceFil,indiceCol)
+
+def ValidarDato(limMin,limMax):
+    Valor  = ""
+    while Valor == "":
+        Valor = int(input(""))
+        if Valor > limMin:
+            if Valor < limMax:
+                return(Valor)
+            else:
+                print("\nValor fuera de rango. Reingrese.")
+                Valor = ""
+        else:
+            print("\nValor fuera de rango. Reingrese.")
+            Valor = ""
+
 
 #modulo DiaYHoraMasVentoso
 def DiaYHoraMasVentoso(MV):
@@ -162,35 +194,29 @@ def DiaHoraMenosLluvioso(MP):
 
 ### PROGRAMA / LOOP PRINCIPAL
 
-
-try:
-    while Opcion != "000":
-        Opcion = input("""Elija una opción:
+while Opcion != "000":
+    Opcion = input("""Elija una opción:
 1 - Ingresar datos de sensores
 2 - Mostrar promedio mensual de sensores
 3 - Mostrar temperatura maxima y minima del mes
 4 - Día y hora mas ventoso del mes
 5 - Día y hora menos lluvioso
-000 - Para finalizar el programa
+000 - Para finalizar el programa\n
 """)
-        if Opcion == "1":
-            print("Opcion 1 seleccionada")
-        elif Opcion == "2":
-            print("Opcion 2 seleccionada")
-        elif Opcion == "3":
-            print("Opcion 3 seleccionada")
-        elif Opcion == "4":
-            print("Opcion 4 seleccionada")
-        elif Opcion == "5":
-            print("Opcion 5 seleccionada")
-        elif Opcion == "000":
-            continue # sale del programa en el siguiente chequeo
-        else:
-            print("Opción inválida")
-        
-        
-
-except KeyboardInterrupt:
-    print("Salimo'")
-    for i in MP:
-        print(i)
+    if Opcion == "1":
+        print(CargarDatos())
+    elif Opcion == "2":
+        print("Opcion 2 seleccionada")
+    elif Opcion == "3":
+        print("Opcion 3 seleccionada")
+    elif Opcion == "4":
+        print("Opcion 4 seleccionada")
+    elif Opcion == "5":
+        print("Opcion 5 seleccionada")
+    elif Opcion == "000":
+        print("\nSalimo'\n")
+        continue # sale del programa en el siguiente chequeo
+    else:
+        print("\nOpción inválida\n") #las \n son para darle el salto de linea y que no quede todo  re pegado
+        time.sleep(1) #esperamos un segundito para que se note que es opcion invalida en el menu
+                
