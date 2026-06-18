@@ -5,7 +5,7 @@ from random import randint
 # 3 columnas, 30 filas. Resuelto por comprensión de listas 
 MP = [[-1 for _ in range(3)] for _ in range(30)]
 MV = [[-1 for _ in range(3)] for _ in range(30)]
-MT = [[randint(1,29) for _ in range(3)] for _ in range(30)]
+MT = [[-1 for _ in range(3)] for _ in range(30)]
 MT[29][2] = -1
 iMP = 0
 iMV = 0
@@ -243,7 +243,7 @@ while Opcion != "000":
 000 - Para finalizar el programa\n
 """)
     if Opcion == "1":
-        print(CargarDatos())
+        CargarDatos()
     elif Opcion == "2":
         promedioSensores()
     elif Opcion == "3":
