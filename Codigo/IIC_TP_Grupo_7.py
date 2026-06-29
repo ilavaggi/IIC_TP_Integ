@@ -5,7 +5,7 @@ from random import randint
 # 3 columnas, 30 filas. Resuelto por comprensión de listas 
 MP = [[-1 for _ in range(3)] for _ in range(30)]
 MV = [[-1 for _ in range(3)] for _ in range(30)]
-MT = [[-1 for _ in range(3)] for _ in range(30)]
+MT = [[randint(13,28) for _ in range(3)] for _ in range(30)]
 MT[29][2] = -1
 iMP = 0
 iMV = 0
